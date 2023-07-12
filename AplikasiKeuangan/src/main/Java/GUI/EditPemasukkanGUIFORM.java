@@ -55,7 +55,7 @@ public class EditPemasukkanGUIFORM extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        fieldID = new javax.swing.JTextField();
+        IDLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -87,8 +87,12 @@ public class EditPemasukkanGUIFORM extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Form Edit Pengeluaran");
 
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("ID");
+
+        IDLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        IDLabel.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,18 +105,19 @@ public class EditPemasukkanGUIFORM extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(IDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(fieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(IDLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -335,7 +340,7 @@ public class EditPemasukkanGUIFORM extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSimpan)
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 25, Short.MAX_VALUE))
         );
 
         pack();
@@ -348,7 +353,7 @@ public class EditPemasukkanGUIFORM extends javax.swing.JFrame {
     
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:\\
-    id_pemasukkan = Integer.parseInt(fieldID.getText());
+    id_pemasukkan = Integer.parseInt(IDLabel.getText());
     jumlah_pemasukkan = Integer.parseInt(Jumlahfield.getText());
     tanggal_pemasukkan = date.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     note = Notefield.getText();
@@ -376,7 +381,7 @@ public class EditPemasukkanGUIFORM extends javax.swing.JFrame {
         this.jumlah_pemasukkan = jumlah_pengeluaran;
         this.tanggal_pemasukkan = tanggal_pengeluaran;
         this.note = note;
-        fieldID.setText(String.valueOf(id_pengeluaran));
+        IDLabel.setText(String.valueOf(id_pengeluaran));
         CBkategori.setSelectedItem(id_kategori_pengeluaran);
         Jumlahfield.setText(String.valueOf(jumlah_pengeluaran));
         date.setDate(Date.from(tanggal_pengeluaran.atStartOfDay(ZoneId.systemDefault()).toInstant()));
@@ -502,12 +507,12 @@ public class EditPemasukkanGUIFORM extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CBkategori;
+    private javax.swing.JLabel IDLabel;
     private javax.swing.JTextField Jumlahfield;
     private javax.swing.JPanel Kategori;
     private javax.swing.JTextField Notefield;
     private javax.swing.JButton btnSimpan;
     private com.toedter.calendar.JDateChooser date;
-    private javax.swing.JTextField fieldID;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
