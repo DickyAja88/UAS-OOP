@@ -256,7 +256,8 @@ HutangStorage hutangStorage = new HutangStorage();
         String judul_hutang = tablehutang.getValueAt(selectedRow, 1).toString();
         String jumlahhutangString = tablehutang.getValueAt(selectedRow, 2).toString();
         String jumlahHutangCleaned = jumlahhutangString.replaceAll("[^\\d]", ""); 
-        int jumlah_hutang = Integer.parseInt(jumlahHutangCleaned);
+        int jumlahHutangAwal = Integer.parseInt(jumlahHutangCleaned);
+        int jumlah_hutang = jumlahHutangAwal/100;
         EditHutangGUIFORM edit = new EditHutangGUIFORM(id_hutang, judul_hutang, jumlah_hutang);
         edit.setVisible(true);
         edit.addWindowListener(new WindowAdapter() {

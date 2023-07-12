@@ -85,7 +85,7 @@ public class EditPemasukkanGUIFORM extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Form Edit Pengeluaran");
+        jLabel1.setText("Form Edit Pemasukkan");
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -363,9 +363,9 @@ public class EditPemasukkanGUIFORM extends javax.swing.JFrame {
         Pemasukkan pemasukkan = new Pemasukkan(id_pemasukkan, id_kategori_pemasukkan, jumlah_pemasukkan, tanggal_pemasukkan, note);
         int rowsAffected = pemasukkanStorage.updatePemasukkan(pemasukkan);
         if (rowsAffected > 0) {
-            JOptionPane.showMessageDialog(null, "Data pengeluaran berhasil diperbarui");
+            JOptionPane.showMessageDialog(null, "Data pemasukkan berhasil diperbarui");
         } else {
-            JOptionPane.showMessageDialog(null, "Gagal memperbarui data pengeluaran");
+            JOptionPane.showMessageDialog(null, "Gagal memperbarui data pemasukkan");
         }
     } catch (SQLException e) {
         e.printStackTrace();
