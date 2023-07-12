@@ -28,6 +28,7 @@ public class connectionDatabase {
             e.printStackTrace();
         }
     }
+    
     public Connection getConnection(){
         if(connection == null){
             try{
@@ -39,6 +40,7 @@ public class connectionDatabase {
         }
         return connection;
     }
+    
     public void disconnect(){
         if (connection != null){
             try{
@@ -49,41 +51,39 @@ public class connectionDatabase {
             }
         }
     }
-public ResultSet executeQueryRead(String sql, Object... values) throws SQLException {
-    ResultSet resultSet = null;
-    try {
-        Connection connection = getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql);
-        for (int i = 0; i < values.length; i++) {
-            statement.setObject(i + 1, values[i]);
-        }
-        resultSet = statement.executeQuery();
-    } catch (SQLException e) {
-        throw new SQLException("Failed to execute query: " + sql, e);
-    }
-    return resultSet;
-}
-
-public int executeQueryDml(String sql, Object... values) throws SQLException {
-    int rowsAffected = 0;
-    try {
-        Connection connection = getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql);
-
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] instanceof Byte) {
-                statement.setByte(i + 1, (byte) values[i]);
-            } else {
+    public ResultSet executeQueryRead(String sql, Object... values) throws SQLException {
+        ResultSet resultSet = null;
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            for (int i = 0; i < values.length; i++) {
                 statement.setObject(i + 1, values[i]);
             }
+            resultSet = statement.executeQuery();
+        } catch (SQLException e) {
+            throw new SQLException("Failed to execute query: " + sql, e);
         }
-
-        rowsAffected = statement.executeUpdate();
-    } catch (SQLException e) {
-        throw new SQLException("Failed to execute update: " + sql, e);
+        return resultSet;
     }
-    return rowsAffected;
-}
+
+    public int executeQueryDml(String sql, Object... values) throws SQLException {
+        int rowsAffected = 0;
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            for (int i = 0; i < values.length; i++) {
+                if (values[i] instanceof Byte) {
+                    statement.setByte(i + 1, (byte) values[i]);
+                } else {
+                    statement.setObject(i + 1, values[i]);
+                }
+            }
+            rowsAffected = statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new SQLException("Failed to execute update: " + sql, e);
+        }
+        return rowsAffected;
+    }
 
 
    public void checkConnection () throws SQLException {
@@ -95,6 +95,7 @@ public int executeQueryDml(String sql, Object... values) throws SQLException {
            e.printStackTrace();
        }
    }
+   
    public void closeResultSet(ResultSet resultSet) {
         if (resultSet != null) {
             try {
@@ -105,6 +106,7 @@ public int executeQueryDml(String sql, Object... values) throws SQLException {
             }
         }
     }
+   
    public void closeStatement(PreparedStatement statement) {
         if (statement != null) {
             try {
@@ -117,7 +119,7 @@ public int executeQueryDml(String sql, Object... values) throws SQLException {
     }
 
     public PreparedStatement prepareStatement(String sql) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
     

@@ -29,6 +29,7 @@ import javax.print.attribute.standard.PageRanges;
  */
 public class PengeluaranStorage {
     connectionDatabase connect = new connectionDatabase();
+    
     public int addPengeluaran(Pengeluaran pengeluaran) throws SQLException {
         String sql = "INSERT INTO pengeluaran (Jumlah_pengeluaran, Id_kategori_pengeluaran, Tanggal_pengeluaran, Note)VALUES (?, ?, ?, ?)";
         int jumlah_Pengeluaran = pengeluaran.getJumlah_pengeluaran();
@@ -38,8 +39,9 @@ public class PengeluaranStorage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String tanggalFormatted = tanggal_pengeluaran.format(formatter);
         int RowsAffect = 0;
-        connect.checkConnection();
+        
         try{
+            connect.checkConnection();
             RowsAffect = connect.executeQueryDml(
                     sql,
                     jumlah_Pengeluaran,
@@ -62,8 +64,8 @@ public class PengeluaranStorage {
         String sql = "SELECT pengeluaran.Jumlah_pengeluaran, kategori_pengeluaran.Nama_kategori, pengeluaran.Tanggal_pengeluaran, pengeluaran.Note FROM pengeluaran "
                 + "INNER JOIN kategori_pengeluaran ON pengeluaran.Id_kategori_pengeluaran=kategori_pengeluaran.Id_kategori_pengeluaran";
         
-        connect.checkConnection();
         try {
+            connect.checkConnection();
             ResultSet resultSet = connect.executeQueryRead(sql);
             while(resultSet.next()){
                 int jumlah_pengeluaran = resultSet.getInt("Jumlah_pengeluaran");
@@ -80,13 +82,14 @@ public class PengeluaranStorage {
         }
         return listPengeluaran;
     }
-        public List<Pengeluaran> getdataPengeluaranById () throws SQLException{
+    
+    public List<Pengeluaran> getdataPengeluaranById () throws SQLException{
         List<Pengeluaran> listPengeluaran = new ArrayList<>();
         String sql = "SELECT pengeluaran.Id_pengeluaran, pengeluaran.Jumlah_pengeluaran, kategori_pengeluaran.Nama_kategori, pengeluaran.Tanggal_pengeluaran, pengeluaran.Note FROM pengeluaran "
                 + "INNER JOIN kategori_pengeluaran ON pengeluaran.Id_kategori_pengeluaran=kategori_pengeluaran.Id_kategori_pengeluaran";
         
-        connect.checkConnection();
         try {
+            connect.checkConnection();
             ResultSet resultSet = connect.executeQueryRead(sql);
             while(resultSet.next()){
                 int id_pengeluaran = resultSet.getInt("Id_pengeluaran");
@@ -106,40 +109,40 @@ public class PengeluaranStorage {
     }
 
     public int updatePengeluaran(Pengeluaran pengeluaran) throws SQLException {
-    String sql = "UPDATE pengeluaran SET Id_kategori_pengeluaran = ?, Jumlah_pengeluaran = ?, Tanggal_pengeluaran = ?, Note = ? WHERE Id_pengeluaran = ?";
-    int id_pengeluaran = pengeluaran.getId_pengeluaran();
-    int id_kategori_pengeluaran = pengeluaran.getId_kategori_pengeluaran();
-    int jumlah_pengeluaran = pengeluaran.getJumlah_pengeluaran();
-    LocalDate tanggal_pengeluaran = pengeluaran.getTanggal_pengeluaran();
-    String note = pengeluaran.getNote();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    String tanggalFormatted = tanggal_pengeluaran.format(formatter);
-
-    int rowsAffected = 0; 
-    try {
-        connect.checkConnection();
-        rowsAffected = connect.executeQueryDml(sql,
-                id_kategori_pengeluaran,
-                jumlah_pengeluaran,
-                tanggalFormatted,
-                note,
-                id_pengeluaran);
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        connect.disconnect();
+        String sql = "UPDATE pengeluaran SET Id_kategori_pengeluaran = ?, Jumlah_pengeluaran = ?, Tanggal_pengeluaran = ?, Note = ? WHERE Id_pengeluaran = ?";
+        int id_pengeluaran = pengeluaran.getId_pengeluaran();
+        int id_kategori_pengeluaran = pengeluaran.getId_kategori_pengeluaran();
+        int jumlah_pengeluaran = pengeluaran.getJumlah_pengeluaran();
+        LocalDate tanggal_pengeluaran = pengeluaran.getTanggal_pengeluaran();
+        String note = pengeluaran.getNote();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String tanggalFormatted = tanggal_pengeluaran.format(formatter);
+        int rowsAffected = 0; 
+        
+        try {
+            connect.checkConnection();
+            rowsAffected = connect.executeQueryDml(sql,
+                    id_kategori_pengeluaran,
+                    jumlah_pengeluaran,
+                    tanggalFormatted,
+                    note,
+                    id_pengeluaran);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            connect.disconnect();
+        }
+        return rowsAffected;
     }
-    return rowsAffected;
-}
 
      public int deletePengeluaran(Pengeluaran pengeluaran) throws SQLException{
         String sql = "DELETE FROM pengeluaran WHERE Id_pengeluaran=?";
         int id_pengeluaran = pengeluaran.getId_pengeluaran();
         int RowsAffect = 0;
-        connect.checkConnection(); 
+       
         try {
-            RowsAffect = connect.executeQueryDml(
-            sql,id_pengeluaran);
+            connect.checkConnection();
+            RowsAffect = connect.executeQueryDml(sql,id_pengeluaran);
         } catch (Exception e) {
            e.printStackTrace();
         }finally{
@@ -147,43 +150,46 @@ public class PengeluaranStorage {
         }
         return RowsAffect;
    }
-public List<Pengeluaran> getPengeluaranByNamaKategori(String nama_kategori) throws SQLException {
-    List<Pengeluaran> pengeluaranList = new ArrayList<>();
-    String sql = "SELECT pengeluaran.Id_pengeluaran, pengeluaran.Jumlah_pengeluaran, kategori_pengeluaran.Nama_kategori, pengeluaran.Tanggal_pengeluaran, pengeluaran.Note FROM pengeluaran "
-            + "INNER JOIN kategori_pengeluaran ON pengeluaran.Id_kategori_pengeluaran=kategori_pengeluaran.Id_kategori_pengeluaran WHERE kategori_pengeluaran.Nama_kategori LIKE ? ";
-    try {
-        connect.checkConnection();
-        ResultSet resultSet = connect.executeQueryRead(sql, "%" + nama_kategori + "%");
-        while (resultSet.next()) {
-            int id_pengeluaran = resultSet.getInt("Id_pengeluaran");
-            int jumlah_pengeluaran = resultSet.getInt("Jumlah_pengeluaran");
-            LocalDate tanggal_pengeluaran = resultSet.getDate("Tanggal_pengeluaran").toLocalDate();
-            String note = resultSet.getString("Note");
-            pengeluaranList.add(new Pengeluaran(id_pengeluaran, jumlah_pengeluaran, nama_kategori, tanggal_pengeluaran, note));
+     
+    public List<Pengeluaran> getPengeluaranByNamaKategori(String nama_kategori) throws SQLException {
+        List<Pengeluaran> pengeluaranList = new ArrayList<>();
+        String sql = "SELECT pengeluaran.Id_pengeluaran, pengeluaran.Jumlah_pengeluaran, kategori_pengeluaran.Nama_kategori, pengeluaran.Tanggal_pengeluaran, pengeluaran.Note FROM pengeluaran "
+                + "INNER JOIN kategori_pengeluaran ON pengeluaran.Id_kategori_pengeluaran=kategori_pengeluaran.Id_kategori_pengeluaran WHERE kategori_pengeluaran.Nama_kategori LIKE ? ";
+        
+        try {
+            connect.checkConnection();
+            ResultSet resultSet = connect.executeQueryRead(sql, "%" + nama_kategori + "%");
+            while (resultSet.next()) {
+                int id_pengeluaran = resultSet.getInt("Id_pengeluaran");
+                int jumlah_pengeluaran = resultSet.getInt("Jumlah_pengeluaran");
+                LocalDate tanggal_pengeluaran = resultSet.getDate("Tanggal_pengeluaran").toLocalDate();
+                String note = resultSet.getString("Note");
+                pengeluaranList.add(new Pengeluaran(id_pengeluaran, jumlah_pengeluaran, nama_kategori, tanggal_pengeluaran, note));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connect.disconnect();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        connect.disconnect();
+        return pengeluaranList;
     }
-    return pengeluaranList;
-}
-public int getTotalPengeluaran() {
-    String sq = "SELECT Jumlah_pengeluaran FROM pengeluaran";
-    try {
-        connect.checkConnection();
-        ResultSet resultSet = connect.executeQueryRead(sq);
-        int totalPengeluaran = 0;
-        while (resultSet.next()) {
-            int jumlah_pengeluaran = resultSet.getInt("Jumlah_pengeluaran");
-            totalPengeluaran += jumlah_pengeluaran;
+    
+    public int getTotalPengeluaran() {
+        String sq = "SELECT Jumlah_pengeluaran FROM pengeluaran";
+        try {
+            connect.checkConnection();
+            ResultSet resultSet = connect.executeQueryRead(sq);
+            int totalPengeluaran = 0;
+            while (resultSet.next()) {
+                int jumlah_pengeluaran = resultSet.getInt("Jumlah_pengeluaran");
+                totalPengeluaran += jumlah_pengeluaran;
+            }
+            return totalPengeluaran;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            connect.disconnect();
         }
-        return totalPengeluaran;
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }finally{
-        connect.disconnect();
+        return 0; 
     }
-    return 0; 
-}
 }

@@ -30,7 +30,6 @@ GUI\TambahPemasukkanGUIFORM$4.class
 model\PembayaranHutang.class
 Storage\HutangStorage.class
 GUI\EditPemasukkanGUIFORM.class
-Connector\AplikasiKeuangan.class
 GUI\HutangGUI$11.class
 Connector\connectionDatabase.class
 GUI\PengeluaranGUI$8.class

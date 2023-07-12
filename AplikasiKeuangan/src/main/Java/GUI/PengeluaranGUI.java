@@ -236,7 +236,7 @@ PengeluaranStorage pengeluaranStorage = new PengeluaranStorage();
         try {
         int selectedRow = tablePengeluaran.getSelectedRow();
         int id_pengeluaran = Integer.parseInt(tablePengeluaran.getValueAt(selectedRow, 0).toString());
-        String jumlahPengeluaranString = tablePengeluaran.getValueAt(selectedRow, 1).toString();
+        String jumlahPengeluaranString = tablePengeluaran.getValueAt(selectedRow, 1).toString().trim();
         String jumlahPengeluaranCleaned = jumlahPengeluaranString.replaceAll("[^\\d]", ""); 
         int jumlah_pengeluaran = Integer.parseInt(jumlahPengeluaranCleaned);
         String nama_kategori = tablePengeluaran.getValueAt(selectedRow, 2).toString();
