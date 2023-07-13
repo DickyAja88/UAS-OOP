@@ -332,7 +332,7 @@ HutangStorage hutangStorage = new HutangStorage();
             JOptionPane.showMessageDialog(null, "Pilih terlebih dahulu hutang yang ingin dibayar.");
         } else {
             int id_hutang = Integer.parseInt(tablehutang.getValueAt(selectedRow, 0).toString());
-            BayarHutangFormGUI bayar = new BayarHutangFormGUI(id_hutang);
+            BayarHutangGUIFORM bayar = new BayarHutangGUIFORM(id_hutang);
             bayar.setVisible(true);
             bayar.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent e) {
